@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^tiles/$', views.tiles),
     url(r'^tileset_info/$', views.tileset_info),
     url(r'^suggest/$', views.suggest),
+    url(r'^suggest_/$', views.suggest_),
     url(r'^', include(router.urls)),
     url(r'^link_tile/$', views.link_tile),
     url(r'^register_url/$', views.register_url),

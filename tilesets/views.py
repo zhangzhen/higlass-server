@@ -283,6 +283,25 @@ def suggest(request):
 
     return JsonResponse(result_dict, safe=False)
 
+@api_view(['GET'])
+def suggest_(request):
+    '''
+    Suggest gene names based on the input text
+    '''
+    # suggestions are taken from a gene annotations tileset
+    tileset_uuid = request.GET['d']
+    text = request.GET['ac']
+
+    try:
+        tileset = tm.Tileset.objects.get(uuid=tileset_uuid)
+    except ObjectDoesNotExist:
+        raise rfe.NotFound('Suggestion source file not found')
+
+    result_dict = tsu.get_gene_suggestions_(
+        tileset.datafile.path, text
+    )
+
+    return JsonResponse(result_dict, safe=False)
 
 @api_view(['GET', 'POST'])
 def viewconfs(request):
